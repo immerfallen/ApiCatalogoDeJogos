@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ApiCatalogoDeJogos.InputModel.Services
 {
-    public interface IJogoService
+    public interface IJogoService : IDisposable
     {
         Task<List<JogoViewModel>> Obter(int pagina, int quantidade);
 
