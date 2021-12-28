@@ -1,4 +1,5 @@
 using ApiCatalogoDeJogos.InputModel.Services;
+using ApiCatalogoDeJogos.Middleware;
 using ApiCatalogoDeJogos.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -53,6 +54,8 @@ namespace ApiCatalogoDeJogos
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ApiCatalogoDeJogos v1"));
             }
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
 
