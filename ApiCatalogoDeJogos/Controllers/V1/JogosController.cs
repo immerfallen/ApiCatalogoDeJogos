@@ -24,6 +24,18 @@ namespace ApiCatalogoDeJogos.Controllers.V1
             _jogoService = jogoService;
         }
 
+        /// <summary>
+        /// Buscar todos os jogos de forma paginada
+        /// </summary>
+        /// <remarks>
+        /// Não é possível retornar os jogos sem paginação
+        /// </remarks>
+        /// <param name="pagina">Indica qual a página está sendo consultada. Minimo = 1</param>
+        /// <param name="quantidade">Indica qual a quantidade de registros por página. Min 1 e Max 50</param>
+        /// <response code="200">Retorna a lista de jogos</response>
+        /// <response code="204">Caso não haja jogos</response>
+       
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<JogoViewModel>>> Obter([FromQuery, Range(1, int.MaxValue)] int pagina = 1, [FromQuery, Range(1, 50)] int quantidade = 5)
         {
@@ -36,6 +48,13 @@ namespace ApiCatalogoDeJogos.Controllers.V1
             return Ok(jogos);
 
         }
+
+        /// <summary>
+        /// Busca jogo pelo seu Id
+        /// </summary> 
+        /// <param name="idJogo">d do  jogo buscado</param>       
+        /// <response code="200">Retorna o jogo filtrado</response>
+        /// <response code="204">Caso não haja jogo com esse id</response>
 
         [HttpGet("{idJogo:guid}")]
         public async Task<ActionResult<JogoViewModel>> Obter([FromRoute] Guid idJogo)
