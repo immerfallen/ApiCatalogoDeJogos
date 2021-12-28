@@ -12,7 +12,7 @@ namespace ApiCatalogoDeJogos.Repositories
 
         Task<Jogo> Obter(Guid id);
 
-        Task<Jogo> Obter(string nome, string produtora);
+        Task<List<Jogo>> Obter(string nome, string produtora);
 
         Task Inserir(Jogo jogo);
 

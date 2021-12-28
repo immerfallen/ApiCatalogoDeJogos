@@ -1,4 +1,5 @@
 ﻿using ApiCatalogoDeJogos.Entities;
+using ApiCatalogoDeJogos.Exceptions;
 using ApiCatalogoDeJogos.Repositories;
 using ApiCatalogoDeJogos.ViewModel;
 using System;
@@ -37,7 +38,7 @@ namespace ApiCatalogoDeJogos.InputModel.Services
 
             if(entidadeJogo == null)
             {
-                throw new JogoNaoCadastradoException();
+                throw new JogoJaCadastradoException();
             }
             entidadeJogo.Preco = preco;
 
@@ -53,8 +54,8 @@ namespace ApiCatalogoDeJogos.InputModel.Services
         {
             var entidadeJogo = await _jogoRepository.Obter(jogo.Nome, jogo.Produtora);
 
-            if ((entidadeJogo.Nome == jogo.Nome) || entidadeJogo.Produtora == jogo.Produtora)
-                throw new JogoCadastradoException();
+            if (entidadeJogo.Count > 0)
+                throw new JogoJaCadastradoException();
 
             var jogoInsert = new Jogo
             {
@@ -95,6 +96,9 @@ namespace ApiCatalogoDeJogos.InputModel.Services
             {
                 return null;
             }
+           
+
+            
 
             return new JogoViewModel
             {
@@ -110,7 +114,7 @@ namespace ApiCatalogoDeJogos.InputModel.Services
             var jogo = _jogoRepository.Obter(id);
 
             if(jogo==null)
-                throw JogoCadastradoException();
+                throw new JogoNaoCadastradoException();
 
             await _jogoRepository.Remover(id);
         }
